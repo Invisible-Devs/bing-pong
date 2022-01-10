@@ -10,19 +10,21 @@ let playerPaddleX = 10;
 let oppPaddleX = 640;
 
 //Paddle Thickness
-let LeftPaddle = 10;
-let RightPaddle = 10;
+let LeftPaddle = 25;
+let RightPaddle = 25;
 
 //the length of the paddles
-let LeftPaddleHeight = 75;
-let RightPaddleHeight = 75;
+let LeftPaddleHeight = 125;
+let RightPaddleHeight = 125;
 
-let life = 3;
+let lives = 3;
 let score = 0;
 
 //Canvas dimensions
 const canvasX = 670;
 const canvasY = 450;
+
+let difficulty = 0; //easy
 
 //ball x/y, speed x/y and radius
 let ball = {
@@ -33,25 +35,25 @@ let ball = {
   dy: 6,
 };
 
-const setup = () => {
+function setup() {
   let canvas = createCanvas(canvasX, canvasY);
   canvas.parent("bing-pong");
-};
+}
 
-const draw = () => {
-  if (life > 0) {
+function draw() {
+  if (lives > 0) {
     gameOn();
   } else {
     gameOver();
   }
-};
+}
 
 const gameOn = () => {
   //Displays
   background(180, 202, 217);
-  lives();
-  level();
-  divider();
+  displayLives();
+  displayLevel();
+  displayDivider();
 
   //Mechanics
   maintainPaddle();
@@ -95,7 +97,7 @@ const gameOn = () => {
   }
 
   //Divider
-  function divider() {
+  function displayDivider() {
     for (i = 0; i < 480; i += 10) {
       let y = 0;
       fill(250, 250, 250);
@@ -108,30 +110,21 @@ const gameOn = () => {
   }
 
   //Display lives
-  function lives() {
+  function displayLives() {
     textAlign(CENTER);
     textSize(24);
     fill(250, 250, 250);
     stroke(0, 0, 0);
-    text("Lives: " + life, 500, 50);
+    text("Lives: " + lives, 500, 50);
   }
 
   //Display level
-  function level() {
+  function displayLevel() {
     textAlign(CENTER);
     textSize(24);
     fill(250, 250, 250);
     stroke(0, 0, 0);
     text("Level: " + abs(ball.dx), 100, 50);
-  }
-
-  //Display score
-  function level() {
-    textAlign(CENTER);
-    textSize(24);
-    fill(250, 250, 250);
-    stroke(0, 0, 0);
-    text("Level: " + abs(ball.dx), 200, 50);
   }
 
   //Creates the ball, moves the ball, and makes the ball bouncy.
@@ -152,7 +145,7 @@ const gameOn = () => {
       if (ball.y >= paddle1Y && ball.y <= paddle1Y + LeftPaddleHeight) {
         ball.dx = -ball.dx + 0.5;
       } else {
-        life--;
+        lives--;
         resetBall();
         navigator.vibrate(100);
       }
@@ -175,15 +168,31 @@ const gameOver = () => {
   text("Game Over", width / 2, height / 2 - 30);
   textSize(20);
   text("Continue ?", width / 2, height / 2);
-  text("Final Score: " + score, 150, 50);
+  if (difficulty){
+    text("Hard Final Score: " + score, 150, 50);
+  }
+  else{
+    text("Easy Final Score: " + score, 150, 50);
+  }
 };
 
-const resetGame = () => {
+const easyLvl = () => {
+  LeftPaddle = 25;
+  RightPaddle = 25;
+  playerPaddleX = 10;
+  oppPaddleX = 640;
+  LeftPaddleHeight = 125;
+  RightPaddleHeight = 125;
+  lives = 3;
+};
+
+const hardLvl = () => {
   LeftPaddle = 10;
   RightPaddle = 10;
   playerPaddleX = 10;
   oppPaddleX = 640;
   LeftPaddleHeight = 75;
   RightPaddleHeight = 75;
-  life = 3;
+  lives = 3;
+  difficulty = 1
 };
