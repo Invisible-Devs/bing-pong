@@ -184,6 +184,8 @@ const easyLvl = () => {
   LeftPaddleHeight = 125;
   RightPaddleHeight = 125;
   lives = 3;
+  difficulty = 0
+  score = 0
 };
 
 const hardLvl = () => {
@@ -195,4 +197,5 @@ const hardLvl = () => {
   RightPaddleHeight = 75;
   lives = 3;
   difficulty = 1
+  score = 0
 };
