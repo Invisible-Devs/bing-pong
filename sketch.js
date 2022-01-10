@@ -146,7 +146,7 @@ const gameOn = () => {
         navigator.vibrate(100);
       }
     }
-    
+
     // Moves opp paddle
     if (ball.y + ball.r > height || ball.y - ball.r < 0) {
       ball.dy = -ball.dy;
@@ -164,6 +164,7 @@ const gameOver = () => {
   text("Game Over", width / 2, height / 2 - 30);
   textSize(20);
   text("Continue ?", width / 2, height / 2);
+  text("Final Level: " + abs(ball.dx), 150, 50);
 };
 
 const resetGame = () => {
