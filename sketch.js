@@ -17,7 +17,8 @@ let RightPaddle = 10;
 let LeftPaddleHeight = 75;
 let RightPaddleHeight = 75;
 
-let lives = 3;
+let life = 3;
+let score = 0;
 
 //Canvas dimensions
 const canvasX = 670;
@@ -38,7 +39,7 @@ function setup() {
 }
 
 function draw() {
-  if (lives > 0) {
+  if (life > 0) {
     gameOn();
   } else {
     gameOver();
@@ -48,7 +49,7 @@ function draw() {
 const gameOn = () => {
   //Displays
   background(180, 202, 217);
-  score();
+  lives();
   level();
   divider();
 
@@ -106,13 +107,13 @@ const gameOn = () => {
     }
   }
 
-  //Display score
-  function score() {
+  //Display lives
+  function lives() {
     textAlign(CENTER);
     textSize(24);
     fill(250, 250, 250);
     stroke(0, 0, 0);
-    text("Lives: " + lives, 500, 50);
+    text("Lives: " + life, 500, 50);
   }
 
   //Display level
@@ -121,7 +122,16 @@ const gameOn = () => {
     textSize(24);
     fill(250, 250, 250);
     stroke(0, 0, 0);
-    text("Level: " + abs(ball.dx), 150, 50);
+    text("Level: " + abs(ball.dx), 100, 50);
+  }
+
+  //Display score
+  function level() {
+    textAlign(CENTER);
+    textSize(24);
+    fill(250, 250, 250);
+    stroke(0, 0, 0);
+    text("Level: " + abs(ball.dx), 200, 50);
   }
 
   //Creates the ball, moves the ball, and makes the ball bouncy.
@@ -134,6 +144,7 @@ const gameOn = () => {
     ball.y = ball.y + ball.dy;
     if (ball.x + ball.r > width - ball.r / 2) {
       ball.dx = -ball.dx - 0.5;
+      score++
     }
 
     //Makes sure to bounce off paddle and not get stuck in paddle
@@ -141,7 +152,7 @@ const gameOn = () => {
       if (ball.y >= paddle1Y && ball.y <= paddle1Y + LeftPaddleHeight) {
         ball.dx = -ball.dx + 0.5;
       } else {
-        lives--;
+        life--;
         resetBall();
         navigator.vibrate(100);
       }
@@ -164,7 +175,7 @@ const gameOver = () => {
   text("Game Over", width / 2, height / 2 - 30);
   textSize(20);
   text("Continue ?", width / 2, height / 2);
-  text("Final Level: " + abs(ball.dx), 150, 50);
+  text("Final Score: " + score, 150, 50);
 };
 
 const resetGame = () => {
@@ -174,5 +185,5 @@ const resetGame = () => {
   oppPaddleX = 640;
   LeftPaddleHeight = 75;
   RightPaddleHeight = 75;
-  lives = 3;
+  life = 3;
 };
