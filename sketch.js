@@ -135,15 +135,16 @@ const gameOn = () => {
     ellipse(ball.x, ball.y, ball.r, 20);
     ball.x = ball.x + ball.dx;
     ball.y = ball.y + ball.dy;
+
     if (ball.x + ball.r > width - ball.r / 2) {
       ball.dx = -ball.dx - 0.5;
-      score++;
     }
 
     //Makes sure to bounce off paddle and not get stuck in paddle
     if (ball.x - (6.5 * ball.r) / 3 < 0) {
       if (ball.y >= paddle1Y && ball.y <= paddle1Y + LeftPaddleHeight) {
         ball.dx = -ball.dx + 0.5;
+        score++;
       } else {
         lives--;
         resetBall();
