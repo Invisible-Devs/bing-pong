@@ -33,18 +33,18 @@ let ball = {
   dy: 6,
 };
 
-function setup() {
+const setup = () => {
   let canvas = createCanvas(canvasX, canvasY);
   canvas.parent("bing-pong");
-}
+};
 
-function draw() {
+const draw = () => {
   if (life > 0) {
     gameOn();
   } else {
     gameOver();
   }
-}
+};
 
 const gameOn = () => {
   //Displays
@@ -144,7 +144,7 @@ const gameOn = () => {
     ball.y = ball.y + ball.dy;
     if (ball.x + ball.r > width - ball.r / 2) {
       ball.dx = -ball.dx - 0.5;
-      score++
+      score++;
     }
 
     //Makes sure to bounce off paddle and not get stuck in paddle
